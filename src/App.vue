@@ -1,8 +1,8 @@
 <template>
 	<div id="app" class="container relative h-full mx-auto">
-		<Navigation class="absolute top-0"></Navigation>
+		<Navigation class="static top-0 h-16"></Navigation>
 
-		<router-view />
+		<router-view class="h-full p-6 pt-24 md:p-12 md:pt-24 lg:p-24 lg:pt-32" />
 	</div>
 </template>
 
@@ -17,7 +17,3 @@
 		}
 	}
 </script>
-
-<style lang="scss">
-
-</style>
