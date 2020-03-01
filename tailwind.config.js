@@ -15,7 +15,7 @@ module.exports = {
 			}
 		},
 		fontFamily: {
-			body: 'Montserrat',
+			body: "Montserrat",
 		},
 		extend: {
 			backgroundColor: {
@@ -27,7 +27,7 @@ module.exports = {
 		}
 	},
 	variants: {
-		//backgroundSize: ['responsive', 'hover', 'focus']
+		textShadow: ["responsive"]
 	},
 	plugins: [],
 }

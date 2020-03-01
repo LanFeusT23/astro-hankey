@@ -1,9 +1,9 @@
 <template>
-	<div class="relative h-full p-6 pt-24 bg-cover home xl:bg-bottom-20">
-		<div class="leading-none font-page-title">
+	<div class="relative h-full p-6 pt-24 bg-cover md:p-12 md:pt-24 lg:p-24 lg:pt-32 home xl:bg-bottom-20">
+		<div class="text-3xl font-bold leading-none lg:text-5xl text-shadow-md">
 			Jonathan Hankey
 		</div>
-		<div class="font-page-subtitle">
+		<div class="text-xl font-bold lg:text-2xl">
 			Astrophotography
 		</div>
 	</div>
