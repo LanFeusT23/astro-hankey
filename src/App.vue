@@ -1,6 +1,6 @@
 <template>
 	<div id="app" class="container relative h-full mx-auto">
-		<Navigation class="static top-0 h-16"></Navigation>
+		<Navigation class="absolute top-0 h-16"></Navigation>
 
 		<router-view class="h-full p-6 pt-24 md:p-12 md:pt-24 lg:p-24 lg:pt-32" />
 	</div>
