@@ -1,5 +1,5 @@
 <template>
-	<div class="relative h-full p-6 pt-24 bg-cover md:p-12 md:pt-24 lg:p-24 lg:pt-32 home xl:bg-bottom-20">
+	<div class="relative h-full p-6 pt-24 bg-center bg-no-repeat bg-cover md:p-12 md:pt-24 lg:p-24 lg:pt-32 home">
 		<div class="text-3xl font-bold leading-none lg:text-5xl text-shadow-md">
 			Jonathan Hankey
 		</div>
@@ -20,6 +20,6 @@ export default {
 
 <style>
 	.home {
-		background: url("../assets/images/landing-page-milkyway-lin.jpg") center bottom no-repeat;
+		background-image: url("../assets/images/landing-page-milkyway-lin.jpg");
 	}
 </style>

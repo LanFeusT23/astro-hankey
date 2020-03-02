@@ -1,0 +1,33 @@
+
+import * as firebase from "firebase/app";
+
+import "firebase/analytics";
+import "firebase/firestore";
+import "firebase/storage";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAprZOEz6qLiC0jqOReyfC665yXvMqQ-Fc",
+    authDomain: "astro-hankey.firebaseapp.com",
+    databaseURL: "https://astro-hankey.firebaseio.com",
+    projectId: "astro-hankey",
+    storageBucket: "astro-hankey.appspot.com",
+    messagingSenderId: "971314145446",
+    appId: "1:971314145446:web:9f5b5de95ccf7899586c67",
+    measurementId: "G-93N48DHE98"
+};
+
+  // Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+const db = firebase.firestore()
+const storage = firebase.storage()
+
+// firebase collections
+const postsCollection = db.collection("posts")
+
+export {
+    db,
+    storage,
+    postsCollection
+}
