@@ -1,7 +1,7 @@
 <template>
-    <div class="w-32 h-32 p-2 bg-center bg-cover rounded-lg cursor-pointer thumbnail md:w-48 md:h-48" 
+    <div class="w-32 h-32 bg-center bg-cover rounded-lg cursor-pointer thumbnail md:w-48 md:h-48" 
         :style="{ 'background-image': `url(${thumbnailUrl})` }">
-        <div class="flex flex-col justify-end w-full h-full uppercase opacity-0 hover:opacity-100 bg-black-50">
+        <div class="flex flex-col justify-end w-full h-full p-2 uppercase rounded-lg opacity-0 hover:opacity-100 bg-black-50">
             <div class="min-w-0 text-sm font-bold leading-tight truncate">{{ title }}</div>
             <div class="text-xs leading-none">{{ formattedDate }}</div>
         </div>

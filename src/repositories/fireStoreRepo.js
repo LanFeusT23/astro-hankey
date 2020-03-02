@@ -1,18 +1,24 @@
-import { storage, postsCollection } from '@/firebaseConfig.js'
+import { storage, firestore, imagesCollection } from '@/firebaseConfig.js'
 import Post from "@/models/Post"
+import data from "./data.json"
 
 async function getImageUrlFromStorage(imagePath) {
-    return await storage.ref(imagePath).getDownloadURL()
+    let url = ""
+    try {
+        url = await storage.ref(imagePath).getDownloadURL()
+    } catch (error) { }
+
+    return url;
 }
 
-const getPosts = async () => {
-    const posts = await postsCollection.get()
+const getImages = async () => {
+    const posts = await imagesCollection.get()
 
     if (posts) {
         return await Promise.all(posts.docs.map(async snapshot => {
             let data = snapshot.data()
             const images = await Promise.all(data.images.map(async image => {
-                let url = await getImageUrlFromStorage(image.location.path)
+                const url = await getImageUrlFromStorage(image.cloudLocation.path)
 
                 return {
                     isMain: image.isMain,
@@ -31,8 +37,22 @@ const getPosts = async () => {
     }
 }
 
+// const addData = () => {
+//     let localfirestore = firestore
 
+//     data.forEach(element => {
+//         //let storageRef = storage.ref().child(`gallery/${element.filename}`)
+
+//         imagesCollection.add({
+//             ...element,
+//             dateCreated: firestore.FieldValue.serverTimestamp(),
+//             imageTakenDate: new Date(element.imageTakenDate),
+//             //thumbnail: storageRef
+//         })
+//     });
+// }
 
 export default {
-    getPosts
+    getImages,
+    //addData
 }
