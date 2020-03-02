@@ -10,6 +10,14 @@ export default {
     getters: {
         sortedPosts(state) {
             return orderBy(state.posts, ['imageTakenDate'], ['desc'])
+        },
+        selectedPost(state, getters, rootState) {
+            let postId = rootState.route?.params?.id
+            if (postId == null) {
+                return undefined
+            }
+
+            return state.posts.find(x => x.id === postId)
         }
     },
     mutations: {

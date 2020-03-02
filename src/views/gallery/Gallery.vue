@@ -1,58 +1,28 @@
 <template>
-    <div class="grid gap-4 gallery">
-        <div class="w-24 h-24 bg-center bg-cover rounded-lg md:w-32 md:h-32" v-for="post in sortedPosts" :key="makeid()"
-            :style="{ 'background-image': `url(${post.images[0].url})` }">
-
-        </div>
+    <div class="grid justify-center gap-2 p-6 pt-24 md:p-12 md:pt-24 lg:p-24 lg:pt-32 md:gap-4 gallery ">
+        <router-link
+            v-for="post in sortedPosts"
+            :to="`/post/${post.id}`"
+            :key="post.id">
+            <Thumbnail v-bind="post" />
+        </router-link>
     </div>
 </template>
 
 <script>
+    import Thumbnail from "@/components/gallery/Thumbnail"
+
     export default {
         name: "Gallery",
+        components: {
+            Thumbnail
+        },
         computed: {
             sortedPosts() {
                 return [
                     ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
-                    ...this.$store.getters["posts/sortedPosts"],
                 ]
             }
-        },
-        methods: {
-            makeid() {
-                var result           = '';
-                var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                var charactersLength = characters.length;
-                for ( var i = 0; i < 5; i++ ) {
-                    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-                }
-                return result;
-            }
-
         },
 		created() {
 			this.$store.dispatch("posts/getPostsAsync")
@@ -64,5 +34,10 @@
     .gallery {
         grid-template-columns: repeat(auto-fit, 8rem);
         grid-template-rows: repeat(auto-fit, 8rem);
+
+        @screen md {
+            grid-template-columns: repeat(auto-fit, 12rem);
+            grid-template-rows: repeat(auto-fit, 12rem);
+        }
     }
 </style>

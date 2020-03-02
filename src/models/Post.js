@@ -7,5 +7,6 @@ export default class Post {
         this.dateCreated = rawPost.dateCreated.toDate()
         this.imageTakenDate = rawPost.imageTakenDate.toDate()
         this.images = rawPost.images
+        this.thumbnailUrl = rawPost.thumbnailUrl
     }
 }

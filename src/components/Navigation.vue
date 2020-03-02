@@ -1,5 +1,5 @@
 <template>
-    <div class="z-50 flex items-center justify-around w-full text-lg uppercase bg-black-lighter">
+    <div class="z-50 flex items-center justify-around w-full text-lg uppercase">
         <NavLink v-for="route in routes" :key="route.name" :to="route.to">
             {{ route.name }}
         </NavLink>
@@ -31,7 +31,3 @@ import NavLink from "@/components/NavLink"
         }
     }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -1,6 +1,6 @@
 <template>
     <router-link :to="to" v-slot="{ href, navigate, isExactActive  }">
-        <a :href="href" @click="navigate" class="relative px-1 nav-link" :class="{ 'nav-link--active': isExactActive  }">
+        <a :href="href" @click="navigate" class="relative px-1 nav-link" :class="{ 'nav-link--active': isExactActive }">
             <slot></slot>
         </a>
     </router-link>
