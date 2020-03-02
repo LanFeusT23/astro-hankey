@@ -25,7 +25,7 @@
             }
         },
 		created() {
-			this.$store.dispatch("posts/getPostsAsync")
+			this.$store.dispatch("posts/getImagesAsync")
 		}
     }
 </script>

@@ -20,14 +20,16 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-const db = firebase.firestore()
+const firestore = firebase.firestore
+const db = firestore()
 const storage = firebase.storage()
 
 // firebase collections
-const postsCollection = db.collection("posts")
+const imagesCollection = db.collection("images")
 
 export {
     db,
+    firestore,
     storage,
-    postsCollection
+    imagesCollection
 }

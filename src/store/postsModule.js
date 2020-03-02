@@ -24,9 +24,12 @@ export default {
         setPosts: (state, posts) => state.posts = posts
     },
     actions: {
-        async getPostsAsync({ commit }) {
-            let posts = await fireStoreRepo.getPosts()
+        async getImagesAsync({ commit }) {
+            let posts = await fireStoreRepo.getImages()
             commit("setPosts", posts)
-        }
+        },
+        // async addData() {
+        //     fireStoreRepo.addData()
+        // }
     }
 }

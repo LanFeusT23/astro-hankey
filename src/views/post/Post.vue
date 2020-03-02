@@ -4,14 +4,14 @@
             :style="{ 'background-image': `url(${imageDisplaying.url})` }">
         </div>
 
-        <div class="z-10 p-6 md:p-10">
-            <div class="text-3xl font-bold leading-tight uppercase truncate">
+        <div class="z-10 p-6 md:p-10" v-if="hasData">
+            <div class="text-3xl font-bold leading-tight uppercase truncate text-shadow">
                 {{ selectedPost.title }}
             </div>
-            <div class="text-2xl font-bold leading-tight uppercase">
+            <div class="text-2xl font-bold leading-tight uppercase text-shadow">
                 {{ selectedPost.subTitle }}
             </div>
-            <div class="leading-none">
+            <div class="leading-none text-shadow">
                 {{ selectedPost.location }} | {{ formattedDate }}
             </div>
         </div>
@@ -26,26 +26,29 @@
     export default {
         name: "Post",
         computed: {
+            hasData() {
+                return this.$store.state.posts.posts.length > 0
+            },
             selectedPost() {
                 return this.$store.getters["posts/selectedPost"]
             },
             backgroundImages() {
-                if (this.selectedPost === undefined) {
+                if (this.selectedPost == null) {
                     return []
                 }
 
-                return sortBy(this.selectedPost.images, 'isMain')
+                return sortBy(this.selectedPost?.images, 'isMain')
             },
             imageDisplaying() {
-                return this.backgroundImages[0]
+                return this.backgroundImages[0] ?? {}
             },
             formattedDate() {
-                return format(this.selectedPost.imageTakenDate, "MM/dd/yyyy")
+                return format(this.selectedPost?.imageTakenDate, "MM/dd/yyyy")
             }
         },
         mounted() {
             if (this.selectedPost === undefined) {
-			    this.$store.dispatch("posts/getPostsAsync")
+			    this.$store.dispatch("posts/getImagesAsync")
             }
         }
     }
