@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 	.home {
 		background-image: url("../assets/images/landing-page-milkyway-lin.jpg");
 	}

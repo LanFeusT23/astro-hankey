@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 const Gallery = import(/* webpackChunkName: "gallery" */ '@/views/gallery/Gallery.vue')
 const ImageList = import(/* webpackChunkName: "imagelist" */ '@/views/gallery/ImageList.vue')
 const ImagePost = import(/* webpackChunkName: "imagepost" */ '@/views/gallery/ImagePost.vue')
+const Gear = import(/* webpackChunkName: "imagepost" */ '@/views/gear/Gear.vue')
 
 Vue.use(VueRouter)
 
@@ -11,24 +12,40 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		component: Home
+		component: Home,
+		meta: {
+			order: 1
+		},
 	},
 	{
-	  path: '/gallery',
-	  name: 'Gallery',
-	  component: () => Gallery,
-	  children: [
+		path: '/gallery',
+		component: () => Gallery,
+		children: [
 			{
 				path: '/',
 				name: "ImageList",
-				component: () => ImageList
+				component: () => ImageList,
+				meta: {
+					order: 2
+				}
 			},
 			{
 				path: ':id',
 				name: "Post",
-				component: () => ImagePost
+				component: () => ImagePost,
+				meta: {
+					order: 2
+				}
 			}
 		]
+	},
+	{
+		path: '/gear',
+		name: 'Gear',
+		component: () => Gear,
+		meta: {
+			order: 3
+		}
 	}
 ]
 

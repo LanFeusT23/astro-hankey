@@ -2,13 +2,19 @@
 	<div id="app" class="container relative h-full mx-auto">
 		<Navigation class="absolute top-0 h-16"></Navigation>
 
-		<router-view class="h-full" />
+		<transition
+			mode="out-in"
+			@leave="leave"
+			@enter="enter">
+			<router-view class="h-full" />
+		</transition>
 	</div>
 </template>
 
 
 <script>
 	import Navigation from "@/components/Navigation"
+	import gsap from "gsap"
 
 	export default {
 		name: "App",
@@ -18,6 +24,67 @@
 		},
 		components: {
 			Navigation
+		},
+		computed: {
+			fromRoute() {
+				return this.$store.state.route?.from?.name
+			},
+			fromRouteMeta() {
+				return this.$store.state.route?.from?.meta
+			},
+			currentRouteMeta() {
+				return this.$store.state.route?.meta
+			},
+			directionToGo() {
+				const { fromRouteMeta, currentRouteMeta } = this
+
+				if (fromRouteMeta.order > currentRouteMeta.order) {
+					return "right"
+				}
+
+				return "left"
+			}
+		},
+		methods: {
+			async enter(el, done) {
+				if (this.fromRoute == null) {
+					done()
+				}
+
+				let startXPosition = -200
+				if (this.directionToGo === "left") {
+					startXPosition = 200
+				}
+				
+				await gsap.fromTo(el, {
+					x: startXPosition,
+					opacity: 0
+				}, {
+					x: 0,
+					opacity: 1,
+					duration: 0.2
+				})
+
+				done()
+			},
+			async leave(el, done) {
+				let finalXPosition = 200
+				if (this.directionToGo === "left") {
+					finalXPosition = -200
+				}
+				
+				await gsap.fromTo(el, {
+					x: 0,
+					opacity: 1
+				}, {
+					x: finalXPosition,
+					opacity: 0,
+					duration: 0.2,
+					ease: "none"
+				})
+
+				done()
+			}
 		}
 	}
 </script>
