@@ -1,5 +1,5 @@
 <template>
-    <router-view></router-view>
+    <router-view v-touch:swipe.left="moveLeft" v-touch:swipe.right="moveRight"></router-view>
 </template>
 
 <script>
