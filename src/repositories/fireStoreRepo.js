@@ -1,6 +1,6 @@
 import { storage, firestore, imagesCollection } from '@/firebaseConfig.js'
 import Post from "@/models/Post"
-import data from "./data.json"
+//import data from "./data.json"
 
 async function getImageUrlFromStorage(imagePath) {
     let url = ""
