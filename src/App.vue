@@ -13,6 +13,10 @@
 
 	export default {
 		name: "App",
+		metaInfo: {
+			title: "Jonathan Hankey Astrophotography",
+			titleTemplate: "%s | Jonathan Hankey Astrophotography"
+		},
 		components: {
 			Navigation
 		}
