@@ -22,4 +22,5 @@ yarn-error.log*
 
 .vs
 .firebase
+*.log
 data.json

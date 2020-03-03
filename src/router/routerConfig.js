@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 const Gallery = import(/* webpackChunkName: "gallery" */ '@/views/gallery/Gallery.vue')
-const Post = import(/* webpackChunkName: "post" */ '@/views/post/Post.vue')
+const ImageList = import(/* webpackChunkName: "imagelist" */ '@/views/gallery/ImageList.vue')
+const ImagePost = import(/* webpackChunkName: "imagepost" */ '@/views/gallery/ImagePost.vue')
 
 Vue.use(VueRouter)
 
@@ -15,12 +16,19 @@ const routes = [
 	{
 	  path: '/gallery',
 	  name: 'Gallery',
-	  component: () => Gallery
-	},
-	{
-		path: '/post/:id',
-		name: "Post",
-		component: () => Post
+	  component: () => Gallery,
+	  children: [
+			{
+				path: '/',
+				name: "ImageList",
+				component: () => ImageList
+			},
+			{
+				path: ':id',
+				name: "Post",
+				component: () => ImagePost
+			}
+		]
 	}
 ]
 
