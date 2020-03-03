@@ -27,12 +27,12 @@
                     this.moveLeft()
                 }
             },
-            moveRight() {
+            moveLeft() {
                 if (this.nextPostId) {
                     this.$router.push({ name: "ImagePost", params: { id: this.nextPostId } })
                 }
             },
-            moveLeft() {
+            moveRight() {
                 if (this.previousPostId) {
                     this.$router.push({ name: "ImagePost", params: { id: this.previousPostId } })
                 }
