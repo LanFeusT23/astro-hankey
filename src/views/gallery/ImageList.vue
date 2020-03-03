@@ -23,10 +23,7 @@
                     ...this.$store.getters["posts/sortedPosts"],
                 ]
             }
-        },
-		created() {
-			this.$store.dispatch("posts/getImagesAsync")
-		}
+        }
     }
 </script>
 

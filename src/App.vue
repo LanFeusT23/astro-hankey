@@ -38,7 +38,10 @@
 			directionToGo() {
 				const { fromRouteMeta, currentRouteMeta } = this
 
-				if (fromRouteMeta.order > currentRouteMeta.order) {
+				if (fromRouteMeta.order === currentRouteMeta.order) {
+					return null
+				}
+				else if (fromRouteMeta.order > currentRouteMeta.order) {
 					return "right"
 				}
 
@@ -47,8 +50,9 @@
 		},
 		methods: {
 			async enter(el, done) {
-				if (this.fromRoute == null) {
+				if (this.fromRoute == null || this.directionToGo == null) {
 					done()
+					return
 				}
 
 				let startXPosition = -200
@@ -68,6 +72,11 @@
 				done()
 			},
 			async leave(el, done) {
+				if (this.directionToGo == null) {
+					done()
+					return
+				}
+
 				let finalXPosition = 200
 				if (this.directionToGo === "left") {
 					finalXPosition = -200

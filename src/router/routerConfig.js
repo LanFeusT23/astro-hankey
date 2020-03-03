@@ -31,7 +31,7 @@ const routes = [
 			},
 			{
 				path: ':id',
-				name: "Post",
+				name: "ImagePost",
 				component: () => ImagePost,
 				meta: {
 					order: 2

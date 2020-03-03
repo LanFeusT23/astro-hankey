@@ -18,6 +18,16 @@ export default {
             }
 
             return state.posts.find(x => x.id === postId)
+        },
+        currentPostIndex(state, getters, rootState) {
+            let postId = rootState.route?.params?.id
+            return getters.sortedPosts.findIndex(x => x.id === postId)
+        },
+        nextPostId(state, getters) {
+            return getters.sortedPosts[getters.currentPostIndex + 1]?.id
+        },
+        previousPostId(state, getters) {
+            return getters.sortedPosts[getters.currentPostIndex - 1]?.id
         }
     },
     mutations: {

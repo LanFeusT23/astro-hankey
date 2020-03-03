@@ -45,11 +45,6 @@
             formattedDate() {
                 return format(this.selectedPost?.imageTakenDate, "MM/dd/yyyy")
             }
-        },
-        mounted() {
-            if (this.selectedPost === undefined) {
-			    this.$store.dispatch("posts/getImagesAsync")
-            }
         }
     }
 </script>
