@@ -1,11 +1,14 @@
 <template>
-    <router-view v-touch:swipe.left="moveLeft" v-touch:swipe.right="moveRight"></router-view>
+    <router-view v-touch:swipe.left="moveRight" v-touch:swipe.right="moveLeft" :key="currentPostId"></router-view>
 </template>
 
 <script>
     export default {
         name: "Gallery",
         computed: {
+            currentPostId() {
+                return this.$store.state.route?.params?.id
+            },
             nextPostId() {
                 return this.$store.getters["posts/nextPostId"]
             },
