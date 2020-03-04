@@ -3,6 +3,9 @@ module.exports = {
         name: "Jonathan Hankey Astrophotography",
         iconPaths: {
             favicon16: 'favicon.ico',
+        },
+        manifestOptions: {
+            icons: []
         }
     }
 }
