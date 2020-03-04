@@ -8,12 +8,14 @@
 			@enter="enter">
 			<router-view class="h-full" />
 		</transition>
+        <NewVersion></NewVersion>
 	</div>
 </template>
 
 
 <script>
 	import Navigation from "@/components/Navigation"
+	import NewVersion from "@/components/shared/NewVersion"
 	import gsap from "gsap"
 
 	export default {
@@ -23,7 +25,8 @@
 			titleTemplate: "%s | Jonathan Hankey Astrophotography"
 		},
 		components: {
-			Navigation
+			Navigation,
+			NewVersion
 		},
 		computed: {
 			fromRoute() {
