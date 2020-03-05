@@ -4,7 +4,8 @@ import Home from '@/views/Home.vue'
 const Gallery = import(/* webpackChunkName: "gallery" */ '@/views/gallery/Gallery.vue')
 const ImageList = import(/* webpackChunkName: "imagelist" */ '@/views/gallery/ImageList.vue')
 const ImagePost = import(/* webpackChunkName: "imagepost" */ '@/views/gallery/ImagePost.vue')
-const Gear = import(/* webpackChunkName: "imagepost" */ '@/views/gear/Gear.vue')
+const Gear = import(/* webpackChunkName: "gear" */ '@/views/gear/Gear.vue')
+const Admin = import(/* webpackChunkName: "admin" */ '@/views/admin/Admin.vue')
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,11 @@ const routes = [
 		meta: {
 			order: 3
 		}
+	},
+	{
+		path: '/admin',
+		name: 'Admin',
+		component: () => Admin
 	}
 ]
 

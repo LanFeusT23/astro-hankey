@@ -1,5 +1,5 @@
 <template>
-	<div id="app" class="container relative h-full mx-auto">
+	<div id="app" class="container relative h-full mx-auto overflow-x-hidden">
 		<Navigation class="absolute top-0 h-16"></Navigation>
 
 		<transition
