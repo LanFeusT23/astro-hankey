@@ -15,7 +15,9 @@ import { sync } from 'vuex-router-sync'
 import App from './App.vue'
 
 const unsync = sync(store, router)
-Vue.use(Vue2TouchEvents)
+Vue.use(Vue2TouchEvents, {
+  swipeTolerance: 90
+})
 Vue.use(VueMeta, {
   // optional pluginOptions
   refreshOnceOnNavigation: true

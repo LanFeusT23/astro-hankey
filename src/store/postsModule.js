@@ -24,10 +24,10 @@ export default {
             return getters.sortedPosts.findIndex(x => x.id === postId)
         },
         nextPostId(state, getters) {
-            return getters.sortedPosts[getters.currentPostIndex + 1]?.id
+            return getters.sortedPosts[getters.currentPostIndex - 1]?.id
         },
         previousPostId(state, getters) {
-            return getters.sortedPosts[getters.currentPostIndex - 1]?.id
+            return getters.sortedPosts[getters.currentPostIndex + 1]?.id
         }
     },
     mutations: {
