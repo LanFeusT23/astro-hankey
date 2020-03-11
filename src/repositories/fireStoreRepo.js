@@ -1,4 +1,4 @@
-import { storage, firestore, imagesCollection, usersCollection } from '@/firebaseConfig.js'
+import { storage, firestore, imagesCollection, usersCollection } from "@/firebaseConfig.js"
 import Post from "@/models/Post"
 //import data from "./data.json"
 
@@ -6,9 +6,9 @@ async function getImageUrlFromStorage(imagePath) {
     let url = ""
     try {
         url = await storage.ref(imagePath).getDownloadURL()
-    } catch (error) { }
+    } catch (error) {}
 
-    return url;
+    return url
 }
 
 const getIsAdmin = async () => {
@@ -16,7 +16,6 @@ const getIsAdmin = async () => {
         const users = await usersCollection.get()
         return true
     } catch (error) {
-        console.log(error);
         return false
     }
 }
@@ -25,25 +24,32 @@ const getImages = async () => {
     const posts = await imagesCollection.get()
 
     if (posts) {
-        return await Promise.all(posts.docs.map(async snapshot => {
-            let data = snapshot.data()
-            const images = await Promise.all(data.images.map(async image => {
-                const url = await getImageUrlFromStorage(image.cloudLocation.path)
+        return await Promise.all(
+            posts.docs.map(async snapshot => {
+                let data = snapshot.data()
+                const images = await Promise.all(
+                    data.images.map(async image => {
+                        const url = await getImageUrlFromStorage(image.cloudLocation.path)
 
-                return {
-                    isMain: image.isMain,
-                    url
-                }
-            }));
+                        return {
+                            isMain: image.isMain,
+                            url
+                        }
+                    })
+                )
 
-            const thumbnailUrl = await getImageUrlFromStorage(data.thumbnail.path)
+                const thumbnailUrl = await getImageUrlFromStorage(data.thumbnail.path)
 
-            return new Post({
-                ...data,
-                images,
-                thumbnailUrl
-            }, snapshot.id)
-        }));
+                return new Post(
+                    {
+                        ...data,
+                        images,
+                        thumbnailUrl
+                    },
+                    snapshot.id
+                )
+            })
+        )
     }
 }
 
