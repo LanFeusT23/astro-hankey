@@ -4,6 +4,7 @@ import * as firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/firestore";
 import "firebase/storage";
+import "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAprZOEz6qLiC0jqOReyfC665yXvMqQ-Fc",
@@ -23,13 +24,19 @@ firebase.analytics();
 const firestore = firebase.firestore
 const db = firestore()
 const storage = firebase.storage()
+const authProvider = new firebase.auth.GoogleAuthProvider()
+const firebaseAuth = firebase.auth
 
 // firebase collections
 const imagesCollection = db.collection("images")
+const usersCollection = db.collection("users")
 
 export {
     db,
     firestore,
     storage,
-    imagesCollection
+    imagesCollection,
+    usersCollection,
+    authProvider,
+    firebaseAuth
 }
