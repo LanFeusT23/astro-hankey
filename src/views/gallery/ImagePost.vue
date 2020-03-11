@@ -1,10 +1,10 @@
 <template>
     <div class="relative flex flex-col justify-end w-full h-full">
-        <div class="absolute z-0 w-full h-full bg-center bg-cover"
+        <div class="absolute z-0 w-full h-full bg-center bg-no-repeat bg-contain"
             :style="{ 'background-image': `url(${imageDisplaying.url})` }">
         </div>
 
-        <div class="z-10 p-6 md:p-10" v-if="hasData">
+        <div class="z-10 pb-10 pl-6" v-if="hasData">
             <div class="text-3xl font-bold leading-tight uppercase truncate text-shadow">
                 {{ selectedPost.title }}
             </div>
