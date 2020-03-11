@@ -1,4 +1,4 @@
-import { storage, firestore, imagesCollection } from '@/firebaseConfig.js'
+import { storage, firestore, imagesCollection, usersCollection } from '@/firebaseConfig.js'
 import Post from "@/models/Post"
 //import data from "./data.json"
 
@@ -9,6 +9,16 @@ async function getImageUrlFromStorage(imagePath) {
     } catch (error) { }
 
     return url;
+}
+
+const getIsAdmin = async () => {
+    try {
+        const users = await usersCollection.get()
+        return true
+    } catch (error) {
+        console.log(error);
+        return false
+    }
 }
 
 const getImages = async () => {
@@ -54,5 +64,6 @@ const getImages = async () => {
 
 export default {
     getImages,
+    getIsAdmin
     //addData
 }
