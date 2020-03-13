@@ -61,7 +61,7 @@ export default {
         disabledButton() {
             const { location, subTitle, title, imageUrl } = this
 
-            return isEmpty(title) && isEmpty(subTitle) && isEmpty(location) && isEmpty(imageUrl)
+            return isEmpty(title) || isEmpty(subTitle) || isEmpty(location) || isEmpty(imageUrl)
         }
     },
     methods: {
