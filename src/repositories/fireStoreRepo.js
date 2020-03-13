@@ -1,14 +1,18 @@
-import { storage, firestore, imagesCollection, usersCollection } from '@/firebaseConfig.js'
+import { storage, firestore, imagesCollection, usersCollection } from "@/firebaseConfig.js"
 import Post from "@/models/Post"
-//import data from "./data.json"
 
 async function getImageUrlFromStorage(imagePath) {
     let url = ""
     try {
-        url = await storage.ref(imagePath).getDownloadURL()
-    } catch (error) { }
+        url = await storage
+            .ref()
+            .child(imagePath)
+            .getDownloadURL()
+    } catch (error) {
+        console.log(error)
+    }
 
-    return url;
+    return url
 }
 
 const getIsAdmin = async () => {
@@ -16,7 +20,6 @@ const getIsAdmin = async () => {
         const users = await usersCollection.get()
         return true
     } catch (error) {
-        console.log(error);
         return false
     }
 }
@@ -25,45 +28,51 @@ const getImages = async () => {
     const posts = await imagesCollection.get()
 
     if (posts) {
-        return await Promise.all(posts.docs.map(async snapshot => {
-            let data = snapshot.data()
-            const images = await Promise.all(data.images.map(async image => {
-                const url = await getImageUrlFromStorage(image.cloudLocation.path)
+        return await Promise.all(
+            posts.docs.map(async snapshot => {
+                let data = snapshot.data()
+                const images = await Promise.all(
+                    data.images.map(async image => {
+                        const url = await getImageUrlFromStorage(image.cloudLocation)
 
-                return {
-                    isMain: image.isMain,
-                    url
-                }
-            }));
+                        return {
+                            isMain: image.isMain,
+                            url
+                        }
+                    })
+                )
 
-            const thumbnailUrl = await getImageUrlFromStorage(data.thumbnail.path)
+                const thumbnailUrl = await getImageUrlFromStorage(data.thumbnail)
 
-            return new Post({
-                ...data,
-                images,
-                thumbnailUrl
-            }, snapshot.id)
-        }));
+                return new Post(
+                    {
+                        ...data,
+                        images,
+                        thumbnailUrl
+                    },
+                    snapshot.id
+                )
+            })
+        )
     }
 }
 
-// const addData = () => {
-//     let localfirestore = firestore
+const addData = async data => {
+    //let localfirestore = firestore
 
-//     data.forEach(element => {
-//         //let storageRef = storage.ref().child(`gallery/${element.filename}`)
-
-//         imagesCollection.add({
-//             ...element,
-//             dateCreated: firestore.FieldValue.serverTimestamp(),
-//             imageTakenDate: new Date(element.imageTakenDate),
-//             //thumbnail: storageRef
-//         })
-//     });
-// }
+    try {
+        const docRef = await imagesCollection.add({
+            ...data,
+            dateCreated: firestore.FieldValue.serverTimestamp()
+        })
+    } catch (error) {
+        console.log(error)
+        alert("Error uploading data")
+    }
+}
 
 export default {
     getImages,
-    getIsAdmin
-    //addData
+    getIsAdmin,
+    addData
 }

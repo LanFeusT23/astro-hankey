@@ -1,84 +1,92 @@
 <template>
     <div class="pt-24">
-        <div class="flex items-center justify-end">
-            <div v-if="!isAdmin">
-                You are not an admin... yet!
-            </div>
-            <div v-else>
-                You are an admin!
+        <Login />
+
+        <template v-if="isAdmin">
+            <div class="my-6 text-xl font-bold">Upload new image post</div>
+
+            <div class="flex">
+                <div class="flex-1">
+                    <TextInput class="mb-3" v-model="title" label="Title" />
+
+                    <TextInput class="mb-3" v-model="subTitle" label="SubTitle" />
+
+                    <TextInput class="mb-3" v-model="location" label="Location" />
+
+                    <DateInput class="mb-3" v-model="dateImageTaken" label="Date image taken" />
+                </div>
+
+                <FileUpload class="flex-1" @image-uploaded="setImageRef"></FileUpload>
             </div>
 
-            <button class="px-4 py-2 ml-6 bg-gray-700 rounded" @click="login" v-show="!isLoggedIn">Login</button>
-            <button class="px-4 py-2 ml-6 bg-red-900 rounded" @click="logout" v-show="isLoggedIn">Logout</button>
-        </div>
-
-        <div class="mt-6">
-            New image form here
-        </div>
+            <Button
+                class="mt-10"
+                :disabled="disabledButton"
+                @click="addNewImage"
+            >Add new image post!</Button>
+        </template>
     </div>
 </template>
 
 <script>
-    import { authProvider, firebaseAuth } from "@/firebaseConfig.js"
+import Login from "@/views/admin/Login"
+import TextInput from "@/components/shared/forms/TextInput"
+import DateInput from "@/components/shared/forms/DateInput"
+import FileUpload from "@/components/shared/forms/FileUpload"
+import Button from "@/components/shared/forms/Button"
+import isEmpty from "lodash/isEmpty"
 
-    export default {
-        name: "Admin",
-        data() {
-            return {
-                loading: false
-            }
+export default {
+    name: "Admin",
+    components: {
+        Login,
+        TextInput,
+        DateInput,
+        FileUpload,
+        Button
+    },
+    data() {
+        return {
+            title: undefined,
+            subTitle: undefined,
+            location: undefined,
+            dateImageTaken: new Date(),
+            imageUrl: undefined
+        }
+    },
+    computed: {
+        isAdmin() {
+            return this.$store.state.users.isAdmin
         },
-        computed: {
-            isLoggedIn() {
-                return this.$store.getters["users/isLoggedIn"]
-            },
-            isAdmin() {
-                return this.$store.state.users.isAdmin
-            }
-        },
-        methods: {
-            login() {
-                firebaseAuth().signInWithRedirect(authProvider)
-            },
-            async logout() {
-                try {
-                    await firebaseAuth().signOut()
-                } catch (error) {
-                    alert("Signing out was unsuccessful!")
-                }
-            }
-        },
-        async created() {
-            firebaseAuth().onAuthStateChanged(async user => {
-                this.loading = true
-                if (user) {                
-                    const token = await firebaseAuth().currentUser.getIdToken()
-                    user.token = token
-                    console.log("user authenticated", user)
-                    await this.$store.dispatch("users/setUser", user)
-                    await this.$store.dispatch("users/getIsAdmin")
-                } else {
-                    console.log("user not authenticated", user) 
-                    await this.$store.dispatch("users/clearUser")
-                    await this.$store.dispatch("users/getIsAdmin")
-                }
-                
-                this.loading = false
-            });
+        disabledButton() {
+            const { location, subTitle, title, imageUrl } = this
 
-            try {
-                const result = await firebaseAuth().getRedirectResult()
-                if (result.credential) {
-                    var user = result.user
-                    var token = result.credential.accessToken
-                    user.token = token
-                    await this.$store.dispatch("users/setUser", user)
-                    await this.$store.dispatch("users/getIsAdmin")
-                }
-            } catch (error) {
-                console.log(error);
-                alert("There was an error authenticating!")
+            return isEmpty(title) && isEmpty(subTitle) && isEmpty(location) && isEmpty(imageUrl)
+        }
+    },
+    methods: {
+        setImageRef(imageUrl) {
+            this.imageUrl = imageUrl
+        },
+        addNewImage() {
+            const { dateImageTaken, location, subTitle, title, imageUrl } = this
+
+            const data = {
+                imageTakenDate: dateImageTaken,
+                location: location,
+                subTitle: subTitle,
+                title: title,
+                thumbnail: imageUrl,
+                images: [
+                    {
+                        isMain: true,
+                        cloudLocation: imageUrl
+                    }
+                ]
             }
+
+            this.$store.dispatch("posts/addData", data)
         }
     }
+}
 </script>

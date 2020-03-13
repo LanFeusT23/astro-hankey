@@ -1,10 +1,9 @@
+import * as firebase from "firebase/app"
 
-import * as firebase from "firebase/app";
-
-import "firebase/analytics";
-import "firebase/firestore";
-import "firebase/storage";
-import "firebase/auth";
+import "firebase/analytics"
+import "firebase/firestore"
+import "firebase/storage"
+import "firebase/auth"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAprZOEz6qLiC0jqOReyfC665yXvMqQ-Fc",
@@ -15,11 +14,11 @@ const firebaseConfig = {
     messagingSenderId: "971314145446",
     appId: "1:971314145446:web:9f5b5de95ccf7899586c67",
     measurementId: "G-93N48DHE98"
-};
+}
 
-  // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig)
+firebase.analytics()
 
 const firestore = firebase.firestore
 const db = firestore()
@@ -31,12 +30,4 @@ const firebaseAuth = firebase.auth
 const imagesCollection = db.collection("images")
 const usersCollection = db.collection("users")
 
-export {
-    db,
-    firestore,
-    storage,
-    imagesCollection,
-    usersCollection,
-    authProvider,
-    firebaseAuth
-}
+export { db, firestore, storage, imagesCollection, usersCollection, authProvider, firebaseAuth }

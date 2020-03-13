@@ -1,6 +1,5 @@
-
 import fireStoreRepo from "@/repositories/fireStoreRepo"
-import orderBy from "lodash/orderBy" 
+import orderBy from "lodash/orderBy"
 
 export default {
     namespaced: true,
@@ -9,7 +8,7 @@ export default {
     },
     getters: {
         sortedPosts(state) {
-            return orderBy(state.posts, ['imageTakenDate'], ['desc'])
+            return orderBy(state.posts, ["imageTakenDate"], ["desc"])
         },
         selectedPost(state, getters, rootState) {
             let postId = rootState.route?.params?.id
@@ -31,15 +30,15 @@ export default {
         }
     },
     mutations: {
-        setPosts: (state, posts) => state.posts = posts
+        setPosts: (state, posts) => (state.posts = posts)
     },
     actions: {
         async getImagesAsync({ commit }) {
             let posts = await fireStoreRepo.getImages()
             commit("setPosts", posts)
         },
-        // async addData() {
-        //     fireStoreRepo.addData()
-        // }
+        async addData(_, data) {
+            fireStoreRepo.addData(data)
+        }
     }
 }
