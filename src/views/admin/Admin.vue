@@ -16,7 +16,7 @@
                     <DateInput class="mb-3" v-model="dateImageTaken" label="Date image taken" />
                 </div>
 
-                <FileUpload class="flex-1" @image-uploaded="setImageRef"></FileUpload>
+                <FileUpload class="flex-1" @image-uploaded="setImageName"></FileUpload>
             </div>
 
             <Button
@@ -51,7 +51,7 @@ export default {
             subTitle: undefined,
             location: undefined,
             dateImageTaken: new Date(),
-            imageUrl: undefined
+            imageFileName: undefined
         }
     },
     computed: {
@@ -59,28 +59,36 @@ export default {
             return this.$store.state.users.isAdmin
         },
         disabledButton() {
-            const { location, subTitle, title, imageUrl } = this
+            const { location, subTitle, title, imageFileName } = this
 
-            return isEmpty(title) || isEmpty(subTitle) || isEmpty(location) || isEmpty(imageUrl)
+            return isEmpty(title) || isEmpty(subTitle) || isEmpty(location) || isEmpty(imageFileName)
         }
     },
     methods: {
-        setImageRef(imageUrl) {
-            this.imageUrl = imageUrl
+        setImageName(imageFileName) {
+            this.imageFileName = imageFileName
+        },
+        getThumbnailPath(imageFileName) {
+            let splitName = imageFileName.split(".")
+
+            var fileExt = splitName.pop()
+            var fileNameWithoutExt = splitName.join(".")
+
+            return `gallery/thumbnails/${fileNameWithoutExt}_200x200.${fileExt}`
         },
         addNewImage() {
-            const { dateImageTaken, location, subTitle, title, imageUrl } = this
+            const { dateImageTaken, location, subTitle, title, imageFileName, getThumbnailPath } = this
 
             const data = {
                 imageTakenDate: dateImageTaken,
                 location: location,
                 subTitle: subTitle,
                 title: title,
-                thumbnail: imageUrl,
+                thumbnail: getThumbnailPath(imageFileName),
                 images: [
                     {
                         isMain: true,
-                        cloudLocation: imageUrl
+                        cloudLocation: `gallery/${imageFileName}`
                     }
                 ]
             }
