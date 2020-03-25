@@ -7,6 +7,8 @@
 
             <div class="flex">
                 <div class="flex-1">
+                    <TextInput class="mb-3" v-model="documentId" label="Document ID" />
+
                     <TextInput class="mb-3" v-model="title" label="Title" />
 
                     <TextInput class="mb-3" v-model="subTitle" label="SubTitle" />
@@ -47,6 +49,7 @@ export default {
     },
     data() {
         return {
+            documentId: undefined,
             title: undefined,
             subTitle: undefined,
             location: undefined,
@@ -77,7 +80,7 @@ export default {
             return `gallery/thumbnails/${fileNameWithoutExt}_200x200.${fileExt}`
         },
         addNewImage() {
-            const { dateImageTaken, location, subTitle, title, imageFileName, getThumbnailPath } = this
+            const { documentId, dateImageTaken, location, subTitle, title, imageFileName, getThumbnailPath } = this
 
             const data = {
                 imageTakenDate: dateImageTaken,
@@ -93,7 +96,7 @@ export default {
                 ]
             }
 
-            this.$store.dispatch("posts/addData", data)
+            this.$store.dispatch("posts/addData", documentId, data)
         }
     }
 }

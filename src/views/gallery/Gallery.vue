@@ -1,5 +1,5 @@
 <template>
-    <router-view v-touch:swipe.left="moveRight" v-touch:swipe.right="moveLeft" :key="currentPostId"></router-view>
+    <router-view @navigatePrevious="moveRight" @navigateNext="moveLeft" v-touch:swipe.left="moveRight" v-touch:swipe.right="moveLeft" :key="currentPostId"></router-view>
 </template>
 
 <script>
