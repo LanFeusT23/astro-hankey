@@ -37,8 +37,8 @@ export default {
             let posts = await fireStoreRepo.getImages()
             commit("setPosts", posts)
         },
-        async addData(_, data) {
-            fireStoreRepo.addData(data)
+        async addData(_, documentId, data) {
+            fireStoreRepo.addData(documentId, data)
         }
     }
 }

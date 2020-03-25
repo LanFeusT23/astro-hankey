@@ -9,6 +9,7 @@
     "deploy": "npm run build && firebase deploy --only hosting"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "core-js": "^3.6.4",
     "date-fns": "^2.10.0",
     "firebase": "^7.9.3",

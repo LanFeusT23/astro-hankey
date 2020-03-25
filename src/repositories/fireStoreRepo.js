@@ -57,11 +57,11 @@ const getImages = async () => {
     }
 }
 
-const addData = async data => {
+const addData = async (docId, data) => {
     //let localfirestore = firestore
 
     try {
-        const docRef = await imagesCollection.add({
+        const docRef = await imagesCollection.doc(docId).set({
             ...data,
             dateCreated: firestore.FieldValue.serverTimestamp()
         })
