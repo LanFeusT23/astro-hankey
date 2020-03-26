@@ -8,26 +8,28 @@
 
 <script>
 import NavLink from "@/components/NavLink"
-    export default {
-        name: "Navigation",
-        components: {
-            NavLink
-        },
-        data() {
-            return {
-                routes: [
-                    {
-                        name: "Home",
-                        to: "/"
-                    }, {
-                        name: "Gallery",
-                        to: "/gallery"
-                    }, {
-                        name: "Gear",
-                        to: "/gear"
-                    }
-                ]
-            }
+export default {
+    name: "Navigation",
+    components: {
+        NavLink
+    },
+    data() {
+        return {
+            routes: [
+                {
+                    name: "Home",
+                    to: "/"
+                },
+                {
+                    name: "Gallery",
+                    to: "/gallery"
+                }
+                // {
+                //     name: "Gear",
+                //     to: "/gear"
+                // }
+            ]
         }
     }
+}
 </script>

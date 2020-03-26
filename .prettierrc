@@ -1,6 +1,6 @@
 {
     "tabWidth": 4,
-    "printWidth": 200,
+    "printWidth": 9999,
     "semi": false,
     "vetur.format.defaultFormatter.css": "none",
     "vetur.format.defaultFormatter.postcss": "none",
