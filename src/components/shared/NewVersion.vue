@@ -1,5 +1,5 @@
 <template>
-    <AlertNotification :showNotification="true" class="container z-50 font-bold">
+    <AlertNotification :showNotification="newServiceWorker" class="container z-50 font-bold">
         <span>New version available!</span>
         <a @click="refresh" class="ml-2 font-bold text-green-600 uppercase cursor-pointer new-version__refresh-page">Refresh</a>
     </AlertNotification>
