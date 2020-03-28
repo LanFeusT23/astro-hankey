@@ -1,7 +1,10 @@
 <template>
     <AlertNotification :showNotification="newServiceWorker" class="container z-50 font-bold">
         <span>New version available!</span>
-        <a @click="refresh" class="ml-2 font-bold text-green-600 uppercase cursor-pointer new-version__refresh-page">Refresh</a>
+        <a
+            @click="refresh"
+            class="ml-2 font-bold text-green-600 uppercase cursor-pointer new-version__refresh-page"
+        >Refresh</a>
     </AlertNotification>
 </template>
 
@@ -27,11 +30,13 @@ export default {
             this.newServiceWorker = event?.detail?.registration ? true : false
         },
         refresh() {
-            // if (this.newServiceWorker) {
-            //     window.document.dispatchEvent(new CustomEvent(EVENTS.REFRESH))
-            // } else {
-            window.location = "/"
-            // }
+            console.log("newServiceWorker?", this.newServiceWorker)
+
+            if (this.newServiceWorker) {
+                window.document.dispatchEvent(new CustomEvent(EVENTS.REFRESH))
+            } else {
+                window.location = "/"
+            }
         }
     },
     beforeDestroy() {
