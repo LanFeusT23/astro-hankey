@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="container relative h-full mx-auto overflow-x-hidden">
-        <ConnectedVertices v-if="displayConnectedVertices"></ConnectedVertices>
+        <ConnectedVertices></ConnectedVertices>
         <Navigation class="absolute top-0 h-16"></Navigation>
 
         <transition mode="out-in" @leave="leave" @enter="enter">
