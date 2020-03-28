@@ -26,6 +26,8 @@ register(`${process.env.BASE_URL}service-worker.js`, {
         console.log("New content is available; please refresh.")
 
         window.document.addEventListener(EVENTS.REFRESH, () => {
+            console.log("skip waiting!")
+
             registration.waiting.postMessage({ action: "skipWaiting" })
         })
 

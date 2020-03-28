@@ -4,8 +4,9 @@
 
 <script>
 import P5 from "p5"
-
 import Particle from "./Particle"
+const MIN_WINDOW_WIDTH = 1500
+
 export default {
     name: "ConnectedVertices",
     data() {
@@ -32,7 +33,7 @@ export default {
                 p5.setup = _ => {
                     var canvas = p5.createCanvas(this.windowWidth, this.windowHeight)
                     canvas.parent("connected-vertices")
-                    this.createParticles(250, undefined, p5)
+                    this.createParticles(50, undefined, p5)
                 }
 
                 p5.draw = _ => {
@@ -50,7 +51,7 @@ export default {
 
                             p5.stroke(255)
                             const distance = p5.floor(p1.v.dist(p2.v))
-                            if (distance < 150) {
+                            if (distance < 400) {
                                 p5.stroke(255, p5.map(distance, 0, 100, 1000, 0))
                                 p5.line(p1.v.x, p1.v.y, p2.v.x, p2.v.y)
                             }
@@ -65,13 +66,13 @@ export default {
     watch: {
         windowWidth: {
             handler(val) {
-                if (val >= 800) {
+                if (val >= MIN_WINDOW_WIDTH) {
                     if (!this.verticesScript) {
                         this.createVertices()
                     } else {
                         this.verticesScript.resizeCanvas(this.windowWidth, this.windowHeight)
                     }
-                } else if (val < 800) {
+                } else if (val < MIN_WINDOW_WIDTH) {
                     if (this.verticesScript) {
                         this.verticesScript.remove()
                         this.verticesScript = undefined
