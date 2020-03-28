@@ -13,6 +13,9 @@ module.exports = {
             minWidth: {
                 24: "6rem",
                 64: "16rem"
+            },
+            opacity: {
+                15: "0.15"
             }
         }
     },
