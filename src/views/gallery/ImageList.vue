@@ -8,23 +8,31 @@
         <router-link
             ref="thumbnail"
             v-for="(post, index) in sortedPosts"
-            :to="`/gallery/${post.id}`"
-            :data-index="index"
+            :id="`Post-${post.id}`"
+            :to="`/gallery/${post.id}`"  
+            :data-index="index"            
             :key="post.id">
-            <Thumbnail v-bind="post" />
+            <Thumbnail v-bind="post" :animatingOut="animatingOut" />
         </router-link>
     </transition-group>
 </template>
 
 <script>
-    import { gsap } from "gsap"
+    import { gsap, MotionPathPlugin } from "gsap/all"
     import Thumbnail from "@/components/gallery/Thumbnail"
+    gsap.registerPlugin(MotionPathPlugin)
+
     const DELAY_BETWEEN_IMAGES_IN_MS = 50
 
     export default {
         name: "ImageList",
         components: {
             Thumbnail
+        },
+        data() {
+            return {
+                animatingOut: false
+            }
         },
         computed: {
             sortedPosts() {
@@ -50,6 +58,42 @@
                     ease: "power1.inOut",
                     onComplete: done
                 })
+            }
+        },
+        beforeRouteLeave(to, from, next) {
+            if (to.name === "ImagePost") {
+                this.animatingOut = true
+                var nextPostId = to.params.id
+                var el = document.getElementById(`Post-${nextPostId}`)
+                var thumbnails = this.$refs.thumbnail.map(x => x.$el)
+
+                el.style.zIndex = 999
+
+                var parentElement = el.parentElement
+                parentElement.style.overflow = "hidden"
+
+                gsap.to(thumbnails, {
+                    opacity: 0,
+                    scale: 0.1,
+                    duration: 0.3
+                })
+
+                var body = document.querySelector("body")
+                var p = MotionPathPlugin.getRelativePosition(el, body, [0.5, 0.5], [0.5, 0.5])
+                gsap.to(el, {
+                    x: "+=" + p.x,
+                    y: "+=" + p.y,
+                    scale: 5,
+                    opacity: .5,
+                    duration: 0.5,
+                    onComplete() {
+                        parentElement.style.overflow = "hidden"
+                        next()
+                    }
+                })
+            }
+            else {
+                next()
             }
         }
     }
