@@ -6,6 +6,10 @@ module.exports = {
         },
         manifestOptions: {
             icons: []
+        },
+        workboxPluginMode: 'GenerateSW',
+        workboxOptions: {
+            skipWaiting: true
         }
     }
 }

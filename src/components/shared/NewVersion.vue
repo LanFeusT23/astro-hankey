@@ -30,13 +30,8 @@ export default {
             this.newServiceWorker = event?.detail?.registration ? true : false
         },
         refresh() {
-            console.log("newServiceWorker?", this.newServiceWorker)
-
-            if (this.newServiceWorker) {
-                window.document.dispatchEvent(new CustomEvent(EVENTS.REFRESH))
-            } else {
-                window.location = "/"
-            }
+            // skipWaiting is set automatically in the vue.config.js
+            window.location = "/"
         }
     },
     beforeDestroy() {
