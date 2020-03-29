@@ -6,6 +6,10 @@
 import P5 from "p5"
 import Particle from "./Particle"
 const MIN_WINDOW_WIDTH = 1500
+const PARTICLE_AMOUNT = 100
+const PARTICLE_RADIUS = undefined
+
+// example taken from https://codepen.io/Mamboleoo/pen/PowKoxe
 
 export default {
     name: "ConnectedVertices",
@@ -33,7 +37,7 @@ export default {
                 p5.setup = _ => {
                     var canvas = p5.createCanvas(this.windowWidth, this.windowHeight)
                     canvas.parent("connected-vertices")
-                    this.createParticles(50, undefined, p5)
+                    this.createParticles(PARTICLE_AMOUNT, PARTICLE_RADIUS, p5)
                 }
 
                 p5.draw = _ => {
