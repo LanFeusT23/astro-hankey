@@ -1,19 +1,28 @@
 <template>
-    <div class="grid justify-center gap-4 p-4 pt-24 md:p-12 md:pt-24 lg:p-24 lg:pt-32 gallery ">
+    <transition-group 
+        name="animate-grid"
+        tag="div"
+        class="grid justify-center gap-4 p-4 pt-24 md:p-12 md:pt-24 lg:p-24 lg:pt-32 gallery "
+        @enter="enter"
+        v-bind:css="false">
         <router-link
             ref="thumbnail"
-            :class="{'opacity-0': hideImages }"
-            v-for="post in sortedPosts"
-            :to="`/gallery/${post.id}`"
+            v-for="(post, index) in sortedPosts"
+            :id="`Post-${post.id}`"
+            :to="`/gallery/${post.id}`"  
+            :data-index="index"            
             :key="post.id">
-            <Thumbnail v-bind="post" />
+            <Thumbnail v-bind="post" :animatingOut="animatingOut" />
         </router-link>
-    </div>
+    </transition-group>
 </template>
 
 <script>
-    import { gsap } from "gsap"
+    import { gsap, MotionPathPlugin } from "gsap/all"
     import Thumbnail from "@/components/gallery/Thumbnail"
+    gsap.registerPlugin(MotionPathPlugin)
+
+    const DELAY_BETWEEN_IMAGES_IN_MS = 50
 
     export default {
         name: "ImageList",
@@ -22,7 +31,7 @@
         },
         data() {
             return {
-                hideImages: true
+                animatingOut: false
             }
         },
         computed: {
@@ -33,40 +42,58 @@
             }
         },
         methods: {
-            animateGridIn() {
-                const thumbnails = this.$refs.thumbnail?.map(x => x.$el)
+            enter(el, done) {
+                var delay = el.dataset.index * DELAY_BETWEEN_IMAGES_IN_MS / 1000
 
-                let self = this
-                gsap.fromTo(thumbnails, {
+                gsap.fromTo(el, {
                     scale: 0.1,
-                    y: 60,
+                    x: "10rem",
                     opacity: 0
                 },{
                     scale: 1,
                     duration: .5,
                     opacity: 1,
-                    y: 0,
+                    x: 0,
+                    delay: delay,
                     ease: "power1.inOut",
-                    stagger: {
-                        amount: 0.5,
-                        from: "start"
-                    }
+                    onComplete: done
                 })
             }
         },
-        watch: {
-            sortedPosts: {
-                async handler(val) {
-                    if (val.length > 0) {
-                        await this.$nextTick() 
-                        this.animateGridIn()
+        beforeRouteLeave(to, from, next) {
+            if (to.name === "ImagePost") {
+                this.animatingOut = true
+                var nextPostId = to.params.id
+                var el = document.getElementById(`Post-${nextPostId}`)
+                var thumbnails = this.$refs.thumbnail.map(x => x.$el)
+
+                el.style.zIndex = 999
+
+                var parentElement = el.parentElement
+                parentElement.style.overflow = "hidden"
+
+                gsap.to(thumbnails, {
+                    opacity: 0,
+                    scale: 0.1,
+                    duration: 0.3
+                })
+
+                var body = document.querySelector("body")
+                var p = MotionPathPlugin.getRelativePosition(el, body, [0.5, 0.5], [0.5, 0.5])
+                gsap.to(el, {
+                    x: "+=" + p.x,
+                    y: "+=" + p.y,
+                    scale: 5,
+                    opacity: .5,
+                    duration: 0.5,
+                    onComplete() {
+                        parentElement.style.overflow = "hidden"
+                        next()
                     }
-                }, immediate: false
+                })
             }
-        },
-        mounted() {
-            if (this.$store.state.route.from?.name === "ImagePost") {
-                this.hideImages = false
+            else {
+                next()
             }
         }
     }
