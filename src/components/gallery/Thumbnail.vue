@@ -1,5 +1,5 @@
 <template>
-    <div class="relative w-24 h-24 overflow-hidden bg-center bg-cover rounded-lg cursor-pointer thumbnail md:w-48 md:h-48">
+    <div :class="{'thumbnail--animating': animatingOut}" class="relative w-24 h-24 overflow-hidden bg-center bg-cover rounded-lg cursor-pointer thumbnail md:w-48 md:h-48">
         <img
             :src="thumbnailUrl"
             :alt="title"
@@ -35,5 +35,9 @@ export default {
 <style lang="scss" scoped>
 .thumbnail {
     box-shadow: 2px 2px 8px 0px rgba(255, 255, 255, 0.1);
+
+    &--animating {
+        box-shadow: unset;
+    }
 }
 </style>
