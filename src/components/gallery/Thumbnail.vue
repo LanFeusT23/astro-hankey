@@ -8,7 +8,7 @@
         />
         <div class="absolute flex flex-col justify-end w-full h-full p-2 uppercase rounded-lg opacity-0 bg-black-50"
             :class="{ 'hover:opacity-100': !animatingOut }">
-            <div class="min-w-0 text-sm font-bold leading-tight truncate">{{ title }}</div>
+            <div class="min-w-0 text-base font-bold leading-tight truncate font-header">{{ title }}</div>
             <div class="text-xs leading-none">{{ formattedDate }}</div>
         </div>
     </div>

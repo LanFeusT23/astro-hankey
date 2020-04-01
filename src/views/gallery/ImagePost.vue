@@ -14,10 +14,10 @@
         </div>
 
         <div class="z-10 pb-10 pl-6" v-if="hasData">
-            <div class="text-3xl font-bold leading-tight uppercase truncate text-shadow">
+            <div class="text-3xl font-bold leading-tight uppercase truncate font-header text-shadow">
                 {{ selectedPost.title }}
             </div>
-            <div class="text-2xl font-bold leading-tight uppercase text-shadow">
+            <div class="text-2xl font-bold leading-tight uppercase font-header text-shadow">
                 {{ selectedPost.subTitle }}
             </div>
             <div class="leading-none text-shadow">
