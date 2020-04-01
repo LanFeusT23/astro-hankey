@@ -2,13 +2,13 @@
     <div class="relative h-full p-6 pt-24 bg-center bg-no-repeat bg-cover md:p-12 md:pt-24 lg:p-24 lg:pt-32 home">
         <div class="flex justify-center mt-10">
             <div ref="title" class="flex flex-col items-center text-white uppercase text-shadow-md">
-                <div ref="name" class="text-3xl font-bold leading-6 lg:leading-10 lg:text-5xl">
+                <div ref="name" class="text-3xl font-bold leading-6 font-header lg:leading-10 lg:text-5xl">
                     Jonathan Hankey
                 </div>
 
                 <div ref="line" class="w-full h-px my-1 bg-purple-500 lg:my-2"></div>
 
-                <div ref="astrophotography" class="flex justify-between w-full text-xl font-bold leading-none uppercase home__subtitle lg:text-2xl">
+                <div ref="astrophotography" class="flex justify-between w-full text-xl font-light leading-4 uppercase font-header home__subtitle lg:text-2xl">
                     <span>A</span>
                     <span>S</span>
                     <span>T</span>

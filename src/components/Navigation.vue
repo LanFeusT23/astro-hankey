@@ -1,5 +1,5 @@
 <template>
-    <div class="z-50 flex items-center justify-around w-full text-lg uppercase">
+    <div class="z-50 flex items-center justify-around w-full uppercase">
         <NavLink v-for="route in routes" :key="route.name" :to="route.to">
             {{ route.name }}
         </NavLink>

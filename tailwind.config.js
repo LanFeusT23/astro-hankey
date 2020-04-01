@@ -1,7 +1,8 @@
 module.exports = {
     theme: {
         fontFamily: {
-            body: "Montserrat"
+            body: "Open Sans",
+            header: "Neuton"
         },
         extend: {
             colors: {
