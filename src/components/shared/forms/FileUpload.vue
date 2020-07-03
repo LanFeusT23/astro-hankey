@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div class="mb-1 text-sm text-gray-600">Image upload (append date to the end of file name)</div>
         <div class="flex items-center mb-3">
             <input
                 class="flex items-center mr-3 rounded min-w-24"
