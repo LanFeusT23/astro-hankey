@@ -64,7 +64,7 @@ export default {
         disabledButton() {
             const { location, subTitle, title, imageFileName } = this
 
-            return isEmpty(title) || isEmpty(subTitle) || isEmpty(location) || isEmpty(imageFileName)
+            return isEmpty(title) || isEmpty(location) || isEmpty(imageFileName)
         }
     },
     methods: {
@@ -96,7 +96,7 @@ export default {
                 ]
             }
 
-            this.$store.dispatch("posts/addData", documentId, data)
+            this.$store.dispatch("posts/addData", { documentId, data })
         }
     }
 }
