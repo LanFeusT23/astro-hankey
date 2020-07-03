@@ -41,14 +41,6 @@ export default {
         return {
             meta: [
                 {
-                    property: "og:site_name",
-                    content: "Jonathan Hankey Astrophotography"
-                },
-                {
-                    property: "og:updated_time",
-                    content: new Date().getTime()
-                },
-                {
                     property: "og:type",
                     content: "website"
                 },
@@ -57,13 +49,33 @@ export default {
                     content: `https://astrohankey.space/gallery/${this.selectedPost?.id}`
                 },
                 {
+                    property: "og:description",
+                    content: ""
+                },
+                {
                     property: "og:title",
-                    content: "Jonathan Hankey Astrophotography"
+                    content: this.selectedPost?.title
+                },
+                {
+                    property: "og:image",
+                    content: this.selectedPost?.thumbnailUrl
                 },
                 {
                     property: "og:image:secure_url",
-                    content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
+                    content: this.selectedPost?.thumbnailUrl
                 }
+                // {
+                //     property: "og:title",
+                //     content: "Jonathan Hankey Astrophotography"
+                // },
+                // {
+                //     property: "og:image",
+                //     content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
+                // },
+                // {
+                //     property: "og:image:secure_url",
+                //     content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
+                // }
             ]
         }
     },
