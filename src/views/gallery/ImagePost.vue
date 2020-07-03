@@ -41,6 +41,14 @@ export default {
         return {
             meta: [
                 {
+                    property: "og:type",
+                    content: "website"
+                },
+                {
+                    property: "og:url",
+                    content: `https://astrohankey.space/gallery/${this.selectedPost?.id}`
+                },
+                {
                     property: "og:title",
                     content: "Jonathan Hankey Astrophotography"
                 },
