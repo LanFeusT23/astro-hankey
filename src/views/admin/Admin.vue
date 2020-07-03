@@ -7,7 +7,11 @@
 
             <div class="flex">
                 <div class="flex-1">
-                    <TextInput class="mb-3" v-model="documentId" label="Document ID" />
+                    <TextInput
+                        class="mb-3"
+                        v-model="documentId"
+                        label="Document ID (same name as file plx)"
+                    />
 
                     <TextInput class="mb-3" v-model="title" label="Title" />
 

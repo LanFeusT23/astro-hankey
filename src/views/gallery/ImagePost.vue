@@ -42,11 +42,11 @@ export default {
             meta: [
                 {
                     property: "og:title",
-                    content: this.selectedPost?.title
+                    content: "Jonathan Hankey Astrophotography"
                 },
                 {
                     property: "og:image",
-                    content: this.imageDisplaying?.url
+                    content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
                 }
             ]
         }
