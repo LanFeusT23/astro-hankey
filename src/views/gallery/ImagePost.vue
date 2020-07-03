@@ -41,6 +41,14 @@ export default {
         return {
             meta: [
                 {
+                    property: "og:site_name",
+                    content: "Jonathan Hankey Astrophotography"
+                },
+                {
+                    property: "og:updated_time",
+                    content: new Date().getTime()
+                },
+                {
                     property: "og:type",
                     content: "website"
                 },
@@ -53,7 +61,7 @@ export default {
                     content: "Jonathan Hankey Astrophotography"
                 },
                 {
-                    property: "og:image",
+                    property: "og:image:secure_url",
                     content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
                 }
             ]
