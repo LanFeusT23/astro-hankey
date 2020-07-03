@@ -46,7 +46,7 @@ export default {
                 },
                 {
                     property: "og:image",
-                    content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.png`
+                    content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
                 }
             ]
         }
