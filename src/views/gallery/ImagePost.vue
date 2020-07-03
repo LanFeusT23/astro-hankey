@@ -49,21 +49,33 @@ export default {
                     content: `https://astrohankey.space/gallery/${this.selectedPost?.id}`
                 },
                 {
-                    property: "og:title",
-                    content: "Jonathan Hankey Astrophotography"
-                },
-                {
                     property: "og:description",
                     content: ""
                 },
                 {
+                    property: "og:title",
+                    content: this.selectedPost?.title
+                },
+                {
                     property: "og:image",
-                    content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
+                    content: this.selectedPost?.thumbnailUrl
                 },
                 {
                     property: "og:image:secure_url",
-                    content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
+                    content: this.selectedPost?.thumbnailUrl
                 }
+                // {
+                //     property: "og:title",
+                //     content: "Jonathan Hankey Astrophotography"
+                // },
+                // {
+                //     property: "og:image",
+                //     content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
+                // },
+                // {
+                //     property: "og:image:secure_url",
+                //     content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
+                // }
             ]
         }
     },
