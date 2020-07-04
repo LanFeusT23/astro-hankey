@@ -28,6 +28,6 @@ const firebaseAuth = firebase.auth
 
 // firebase collections
 const imagesCollection = db.collection(process.env.VUE_APP_IMAGE_COLLECTION)
-const usersCollection = db.collection("users")
+const usersCollection = db.collection(process.env.VUE_APP_USER_COLLECTION)
 
 export { db, firestore, storage, imagesCollection, usersCollection, authProvider, firebaseAuth }

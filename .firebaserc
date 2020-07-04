@@ -8,7 +8,7 @@
         "production-site": [
           "astro-hankey"
         ],
-        "development-site": [
+        "staging-site": [
           "astro-hankey-test"
         ]
       }
