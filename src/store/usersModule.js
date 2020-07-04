@@ -33,9 +33,6 @@ export default {
 		},
 		clearUser({ commit }) {
 			commit('clearUser')
-		},
-        // async addData() {
-        //     fireStoreRepo.addData()
-        // }
+		}
     }
 }

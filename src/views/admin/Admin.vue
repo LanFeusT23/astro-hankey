@@ -1,11 +1,11 @@
 <template>
-    <div class="pt-24">
+    <div class="pt-24 px-2">
         <Login />
 
         <template v-if="isAdmin">
             <div class="my-6 text-xl font-bold">Upload new image post</div>
 
-            <div class="flex px-2 sm:flex-wrap lg:flex-no-wrap">
+            <div class="flex sm:flex-wrap lg:flex-no-wrap">
                 <div>
                     <FileUpload
                         class="flex-1"
