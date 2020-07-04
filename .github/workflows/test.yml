@@ -16,11 +16,9 @@ jobs:
               with:
                   node-version: "12.x"
             - name: Build
-              run: npm ci && npm run build
+              run: npm ci && npm run build -- --mode development
             - uses: w9jds/firebase-action@master
               with:
                   args: deploy --only hosting:development-site
               env:
                   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-                  VUE_APP_STORAGE_BUCKET: "gs://astro-hankey-test"
-                  VUE_APP_IMAGE_COLLECTION: "testImages"
