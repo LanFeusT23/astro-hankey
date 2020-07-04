@@ -7,7 +7,7 @@ on:
             - test-deploy
 
 jobs:
-    firebase-deploy:
+    firebase-deploy-test:
         runs-on: ubuntu-latest
 
         steps:
