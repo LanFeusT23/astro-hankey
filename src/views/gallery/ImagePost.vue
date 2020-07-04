@@ -46,24 +46,21 @@ export default {
                 },
                 {
                     property: "og:url",
-                    content: `https://astrohankey.space/gallery/${this.selectedPost?.id}`
-                },
-                {
-                    property: "og:description",
-                    content: ""
+                    content: "https://astrohankey.space/gallery/iss_transit_stack-2020-07-03"
+                    // content: `https://astrohankey.space/gallery/${this.selectedPost?.id}`
                 },
                 {
                     property: "og:title",
-                    content: this.selectedPost?.title
+                    content: "Jonathan Hankey Astrophotography"
                 },
                 {
                     property: "og:image",
-                    content: this.selectedPost?.thumbnailUrl
+                    content: "http://ogp.me/logo.png"
                 },
-                {
-                    property: "og:image:secure_url",
-                    content: this.selectedPost?.thumbnailUrl
-                }
+                // {
+                //     property: "og:image:secure_url",
+                //     content: this.selectedPost?.thumbnailUrl
+                // }
                 // {
                 //     property: "og:title",
                 //     content: "Jonathan Hankey Astrophotography"
