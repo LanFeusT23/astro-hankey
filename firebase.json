@@ -1,7 +1,7 @@
 {
     "hosting": [
         {
-            "site": "astro-hankey",
+            "target": "astro-hankey",
             "public": "dist",
             "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
             "rewrites": [
@@ -12,7 +12,7 @@
             ]
         },
         {
-            "site": "astro-hankey-test",
+            "target": "astro-hankey-test",
             "public": "dist",
             "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
             "rewrites": [
