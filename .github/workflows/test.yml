@@ -3,8 +3,8 @@ name: CI
 on:
     push:
         branches:
-            - master
-            - release/*
+            - develop
+            - test-deploy
 
 jobs:
     firebase-deploy:
@@ -19,7 +19,8 @@ jobs:
               run: npm ci && npm run build
             - uses: w9jds/firebase-action@master
               with:
-                  args: deploy --only hosting -- project astro-hankey
+                  args: deploy --only hosting -- project astro-hankey-test
               env:
                   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-                  VUE_APP_IMAGE_COLLECTION: "images"
+                  VUE_APP_STORAGE_BUCKET: "gs://astro-hankey-test"
+                  VUE_APP_IMAGE_COLLECTION: "testImages"
