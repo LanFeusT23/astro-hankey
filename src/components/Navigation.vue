@@ -1,8 +1,10 @@
 <template>
-    <div class="z-50 flex items-center justify-around w-full uppercase">
-        <NavLink v-for="route in routes" :key="route.name" :to="route.to">
-            {{ route.name }}
-        </NavLink>
+    <div class="w-full z-50 bg-black-50">
+        <div class="h-full flex items-center justify-around container mx-auto uppercase">
+            <NavLink v-for="route in routes" :key="route.name" :to="route.to">
+                {{ route.name }}
+            </NavLink>
+        </div>
     </div>
 </template>
 
