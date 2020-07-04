@@ -38,7 +38,10 @@ export default {
             commit("setPosts", posts)
         },
         async addData(_, { documentId, data }) {
-            fireStoreRepo.addData(documentId, data)
+            await fireStoreRepo.addData(documentId, data)
+        },
+        async uploadFile(_, { imageData, onSnapshot, onCompletion }) {
+            await fireStoreRepo.uploadFile(imageData, onSnapshot, onCompletion)
         }
     }
 }

@@ -16,10 +16,6 @@
             Progress: {{ uploadProgress }}
             <progress id="progress" :value="uploadValue" max="100"></progress>
         </div>
-
-        <div v-if="imageData != null">
-            <img class="h-64 mb-3" :src="picture" />
-        </div>
     </div>
 </template>
 
@@ -53,42 +49,70 @@ export default {
             this.picture = null
             this.imageData = event.target.files[0]
         },
-        onUpload() {
+        onSnapshot(snapshot) {
+            this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        },
+        onCompletion(url) {
+            this.uploadValue = 100
+            this.picture = url
+            this.$emit("image-uploaded", {
+                name: this.imageData.name,
+                url: url
+            })
+            this.resetForm()
+        },
+        resetForm() {
+            this.imageData = null
             this.picture = null
-            const storageRef = storage.ref(`gallery/${this.imageData.name}`).put(this.imageData)
+            this.uploadValue = 0
+        },
+        async onUpload() {
+            this.picture = null
+            let { imageData, onSnapshot, onCompletion } = this
 
-            storageRef.on(
-                `state_changed`,
-                snapshot => {
-                    this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                },
-                error => {
-                    console.log(error.message)
-                    // A full list of error codes is available at
-                    // https://firebase.google.com/docs/storage/web/handle-errors
-                    switch (error.code) {
-                        case "storage/unauthorized":
-                            // User doesn't have permission to access the object
-                            break
+            await this.$store.dispatch("posts/uploadFile", {
+                imageData,
+                onSnapshot,
+                onCompletion
+            })
 
-                        case "storage/canceled":
-                            // User canceled the upload
-                            break
+            // const storageRef = storage.ref(`test/${this.imageData.name}`).put(this.imageData)
 
-                        case "storage/unknown":
-                            // Unknown error occurred, inspect error.serverResponse
-                            break
-                    }
-                },
-                async () => {
-                    // Upload completed successfully, now we can get the download URL
-                    this.uploadValue = 100
+            // storageRef.on(
+            //     "state_changed",
+            //     snapshot => {
+            //         this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            //     },
+            //     error => {
+            //         console.log(error.message)
+            //         // A full list of error codes is available at
+            //         // https://firebase.google.com/docs/storage/web/handle-errors
+            //         switch (error.code) {
+            //             case "storage/unauthorized":
+            //                 // User doesn't have permission to access the object
+            //                 break
 
-                    const url = await storageRef.snapshot.ref.getDownloadURL()
-                    this.picture = url
-                    this.$emit("image-uploaded", `gallery/${this.imageData.name}`)
-                }
-            )
+            //             case "storage/canceled":
+            //                 // User canceled the upload
+            //                 break
+
+            //             case "storage/unknown":
+            //                 // Unknown error occurred, inspect error.serverResponse
+            //                 break
+            //         }
+            //     },
+            //     async () => {
+            //         // Upload completed successfully, now we can get the download URL
+            //         this.uploadValue = 100
+
+            //         const url = await storageRef.snapshot.ref.getDownloadURL()
+            //         this.picture = url
+            //         this.$emit("image-uploaded", {
+            //             name: this.imageData.name,
+            //             url: url
+            //         })
+            //     }
+            // )
         }
     }
 }

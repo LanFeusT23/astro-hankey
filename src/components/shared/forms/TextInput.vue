@@ -2,6 +2,7 @@
     <div>
         <div class="mb-1 text-sm text-gray-600">{{ label }}</div>
         <input
+            v-bind="$attrs"
             class="px-3 py-2 text-white bg-gray-800 rounded-lg outline-none min-w-64"
             type="text"
             v-model="textValue"

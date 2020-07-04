@@ -5,13 +5,15 @@
         <template v-if="isAdmin">
             <div class="my-6 text-xl font-bold">Upload new image post</div>
 
-            <div class="flex">
-                <div class="flex-1">
-                    <TextInput
-                        class="mb-3"
-                        v-model="documentId"
-                        label="Document ID (same name as file plx)"
-                    />
+            <div class="flex px-2 sm:flex-wrap lg:flex-no-wrap">
+                <div>
+                    <FileUpload
+                        class="flex-1"
+                        @image-uploaded="setImageName"
+                        :resetUpload="resetUpload"
+                    ></FileUpload>
+
+                    <TextInput class="mb-3" v-model="documentId" label="Document ID" disabled />
 
                     <TextInput class="mb-3" v-model="title" label="Title" />
 
@@ -20,16 +22,16 @@
                     <TextInput class="mb-3" v-model="location" label="Location" />
 
                     <DateInput class="mb-3" v-model="dateImageTaken" label="Date image taken" />
+
+                    <Button
+                        class="mt-10"
+                        :disabled="disabledButton"
+                        @click="addNewImage"
+                    >Add new image post!</Button>
                 </div>
 
-                <FileUpload class="flex-1" @image-uploaded="setImageName"></FileUpload>
+                <ImagePreview v-if="imageUrl != null" :imageUrl="imageUrl" />
             </div>
-
-            <Button
-                class="mt-10"
-                :disabled="disabledButton"
-                @click="addNewImage"
-            >Add new image post!</Button>
         </template>
     </div>
 </template>
@@ -39,6 +41,7 @@ import Login from "@/views/admin/Login"
 import TextInput from "@/components/shared/forms/TextInput"
 import DateInput from "@/components/shared/forms/DateInput"
 import FileUpload from "@/components/shared/forms/FileUpload"
+import ImagePreview from "@/components/shared/forms/ImagePreview"
 import Button from "@/components/shared/forms/Button"
 import isEmpty from "lodash/isEmpty"
 
@@ -49,16 +52,19 @@ export default {
         TextInput,
         DateInput,
         FileUpload,
+        ImagePreview,
         Button
     },
     data() {
         return {
-            documentId: undefined,
             title: undefined,
             subTitle: undefined,
             location: undefined,
             dateImageTaken: new Date(),
-            imageFileName: undefined
+            imageFileName: undefined,
+            imageUrl: undefined,
+            addingPost: false,
+            resetUpload: false
         }
     },
     computed: {
@@ -66,32 +72,57 @@ export default {
             return this.$store.state.users.isAdmin
         },
         disabledButton() {
-            const { location, subTitle, title, imageFileName } = this
+            const { location, subTitle, title, imageFileName, addingPost } = this
 
-            return isEmpty(title) || isEmpty(location) || isEmpty(imageFileName)
+            return isEmpty(title) || isEmpty(location) || isEmpty(imageFileName) || addingPost
+        },
+        documentId() {
+            if (this.imageFileName === undefined) {
+                return
+            }
+
+            let splitName = this.imageFileName.split(".")
+
+            var fileExt = splitName.pop()
+            return splitName.join(".")
+        },
+        thumbnailPath() {
+            if (this.imageFileName === undefined) {
+                return
+            }
+
+            let splitName = this.imageFileName.split(".")
+
+            var fileExt = splitName.pop()
+
+            return `gallery/thumbnails/${this.documentId}_200x200.${fileExt}`
         }
     },
     methods: {
-        setImageName(imageFileName) {
-            this.imageFileName = imageFileName
+        resetPost() {
+            this.title = undefined
+            this.subTitle = undefined
+            this.location = undefined
+            this.dateImageTaken = new Date()
+            this.imageFileName = undefined
+            this.imageUrl = undefined
+            this.resetUpload = true
         },
-        getThumbnailPath(imageFileName) {
-            let splitName = imageFileName.split(".")
-
-            var fileExt = splitName.pop()
-            var fileNameWithoutExt = splitName.join(".")
-
-            return `gallery/thumbnails/${fileNameWithoutExt}_200x200.${fileExt}`
+        setImageName(imageFile) {
+            this.imageFileName = imageFile.name
+            this.imageUrl = imageFile.url
         },
-        addNewImage() {
+        async addNewImage() {
             const { documentId, dateImageTaken, location, subTitle, title, imageFileName, getThumbnailPath } = this
 
+            this.addingPost = true
+            this.resetUpload = false
             const data = {
                 imageTakenDate: dateImageTaken,
                 location: location,
                 subTitle: subTitle,
                 title: title,
-                thumbnail: getThumbnailPath(imageFileName),
+                thumbnail: this.thumbnailPath,
                 images: [
                     {
                         isMain: true,
@@ -100,7 +131,10 @@ export default {
                 ]
             }
 
-            this.$store.dispatch("posts/addData", { documentId, data })
+            await this.$store.dispatch("posts/addData", { documentId, data })
+            this.addingPost = false
+            alert("Success!")
+            this.resetPost()
         }
     }
 }
