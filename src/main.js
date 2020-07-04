@@ -18,10 +18,10 @@ const unsync = sync(store, router)
 Vue.use(Vue2TouchEvents, {
   swipeTolerance: 90
 })
-// Vue.use(VueMeta, {
-//   // optional pluginOptions
-//   refreshOnceOnNavigation: true
-// })
+Vue.use(VueMeta, {
+  // optional pluginOptions
+  refreshOnceOnNavigation: true
+})
 
 Vue.config.productionTip = false
 new Vue({

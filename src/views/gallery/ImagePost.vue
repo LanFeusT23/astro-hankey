@@ -40,39 +40,22 @@ export default {
     metaInfo() {
         return {
             meta: [
-                // {
-                //     property: "og:type",
-                //     content: "website"
-                // },
-                // {
-                //     property: "og:url",
-                //     content: "https://astrohankey.space/gallery/iss_transit_stack-2020-07-03"
-                //     // content: `https://astrohankey.space/gallery/${this.selectedPost?.id}`
-                // },
-                // {
-                //     property: "og:title",
-                //     content: "Jonathan Hankey Astrophotography"
-                // },
-                // {
-                //     property: "og:image",
-                //     content: "http://ogp.me/logo.png"
-                // },
-                // {
-                //     property: "og:image:secure_url",
-                //     content: this.selectedPost?.thumbnailUrl
-                // }
-                // {
-                //     property: "og:title",
-                //     content: "Jonathan Hankey Astrophotography"
-                // },
-                // {
-                //     property: "og:image",
-                //     content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
-                // },
-                // {
-                //     property: "og:image:secure_url",
-                //     content: `https://firebasestorage.googleapis.com/v0/b/astro-hankey.appspot.com/o/gallery%2Fthumbnails%2F${this.selectedPost?.id}_200x200.jpg?alt=media`
-                // }
+                {
+                    property: "og:type",
+                    content: "website"
+                },
+                {
+                    property: "og:url",
+                    content: `https://astrohankey.space/gallery/${this.selectedPost?.id}`
+                },
+                {
+                    property: "og:title",
+                    content: "Jonathan Hankey Astrophotography"
+                },
+                {
+                    property: "og:image:secure_url",
+                    content: this.selectedPost?.thumbnailUrl
+                }
             ]
         }
     },
