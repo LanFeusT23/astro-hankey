@@ -49,18 +49,21 @@ export default {
             await fireStoreRepo.uploadFile(imageData, onSnapshot, onCompletion)
         },
         async updateImageUrl({ commit }, { post }) {
-            const images = await Promise.all(
-                post.images.map(async image => {
-                    const url = await fireStoreRepo.getImageUrlFromStorage(image.cloudLocation)
+            if (!post.loaded) {
+                const images = await Promise.all(
+                    post.images.map(async image => {
+                        const url = await fireStoreRepo.getImageUrlFromStorage(image.cloudLocation)
 
-                    return {
-                        isMain: image.isMain,
-                        url
-                    }
-                })
-            )
+                        return {
+                            ...image,
+                            url
+                        }
+                    })
+                )
 
-            post.images = images
+                post.images = images
+                post.loaded = true
+            }
 
             commit("updatePost", post)
         }
