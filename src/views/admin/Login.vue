@@ -46,6 +46,7 @@ export default {
     async created() {
         firebaseAuth().onAuthStateChanged(async user => {
             this.loading = true
+            
             if (user) {
                 console.log("user authenticated", user)
                 await this.$store.dispatch("users/setUser", user)

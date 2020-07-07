@@ -3,11 +3,11 @@ name: CI
 on:
     push:
         branches:
-            - master
-            - release/*
+            - develop
+            - test-deploy
 
 jobs:
-    firebase-deploy:
+    firebase-deploy-test:
         runs-on: ubuntu-latest
 
         steps:
@@ -16,9 +16,9 @@ jobs:
               with:
                   node-version: "12.x"
             - name: Build
-              run: npm ci && npm run build -- --mode production
+              run: npm ci && npm run build -- --mode staging
             - uses: w9jds/firebase-action@master
               with:
-                  args: deploy --only hosting:production-site
+                  args: deploy --only hosting:staging-site
               env:
                   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

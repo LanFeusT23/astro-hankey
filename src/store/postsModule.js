@@ -30,15 +30,39 @@ export default {
         }
     },
     mutations: {
-        setPosts: (state, posts) => (state.posts = posts)
+        setPosts: (state, posts) => (state.posts = posts),
+        updatePost(state, post) {
+            let existingPostIndex = state.posts.findIndex(x => x.id === post.id)
+
+            state.posts[existingPostIndex] = post
+        }
     },
     actions: {
         async getImagesAsync({ commit }) {
-            let posts = await fireStoreRepo.getImages()
+            let posts = await fireStoreRepo.getPosts()
             commit("setPosts", posts)
         },
         async addData(_, { documentId, data }) {
-            fireStoreRepo.addData(documentId, data)
+            await fireStoreRepo.addData(documentId, data)
+        },
+        async uploadFile(_, { imageData, onSnapshot, onCompletion }) {
+            await fireStoreRepo.uploadFile(imageData, onSnapshot, onCompletion)
+        },
+        async updateImageUrl({ commit }, { post }) {
+            const images = await Promise.all(
+                post.images.map(async image => {
+                    const url = await fireStoreRepo.getImageUrlFromStorage(image.cloudLocation)
+
+                    return {
+                        isMain: image.isMain,
+                        url
+                    }
+                })
+            )
+
+            post.images = images
+
+            commit("updatePost", post)
         }
     }
 }

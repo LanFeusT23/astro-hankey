@@ -1,10 +1,10 @@
 <template>
-    <div id="app" class="container relative h-full mx-auto overflow-x-hidden">
+    <div id="app" class="relative h-full overflow-x-hidden">
         <ConnectedVertices></ConnectedVertices>
         <Navigation class="absolute top-0 h-16"></Navigation>
 
         <transition mode="out-in" @leave="leave" @enter="enter">
-            <router-view class="h-full" />
+            <router-view class="h-full container mx-auto" />
         </transition>
         <NewVersion></NewVersion>
     </div>

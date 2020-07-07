@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "astro-hankey"
+  },
+  "targets": {
+    "astro-hankey": {
+      "hosting": {
+        "production-site": [
+          "astro-hankey"
+        ],
+        "staging-site": [
+          "astro-hankey-test"
+        ]
+      }
+    }
   }
 }

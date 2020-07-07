@@ -22,12 +22,12 @@ firebase.analytics()
 
 const firestore = firebase.firestore
 const db = firestore()
-const storage = firebase.storage()
+const storage = firebase.app().storage(process.env.VUE_APP_STORAGE_BUCKET)
 const authProvider = new firebase.auth.GoogleAuthProvider()
 const firebaseAuth = firebase.auth
 
 // firebase collections
-const imagesCollection = db.collection("images")
-const usersCollection = db.collection("users")
+const imagesCollection = db.collection(process.env.VUE_APP_IMAGE_COLLECTION)
+const usersCollection = db.collection(process.env.VUE_APP_USER_COLLECTION)
 
 export { db, firestore, storage, imagesCollection, usersCollection, authProvider, firebaseAuth }
