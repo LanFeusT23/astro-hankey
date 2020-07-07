@@ -93,6 +93,16 @@ export default {
         navigateNext() {
             this.$emit("navigateNext")
         }
+    },
+    watch: {
+        selectedPost: {
+            handler(val) {
+                if (val != null) {
+                    this.$store.dispatch("posts/updateImageUrl", { post: this.selectedPost })
+                }
+            },
+            immediate: true
+        }
     }
 }
 </script>

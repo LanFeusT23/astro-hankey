@@ -24,30 +24,19 @@ const getIsAdmin = async () => {
     }
 }
 
-const getImages = async () => {
+const getPosts = async () => {
     const posts = await imagesCollection.get()
 
     if (posts) {
         return await Promise.all(
             posts.docs.map(async snapshot => {
                 let data = snapshot.data()
-                const images = await Promise.all(
-                    data.images.map(async image => {
-                        const url = await getImageUrlFromStorage(image.cloudLocation)
-
-                        return {
-                            isMain: image.isMain,
-                            url
-                        }
-                    })
-                )
 
                 const thumbnailUrl = await getImageUrlFromStorage(data.thumbnail)
 
                 return new Post(
                     {
                         ...data,
-                        images,
                         thumbnailUrl
                     },
                     snapshot.id
@@ -103,7 +92,8 @@ const addData = async (docId, data) => {
 }
 
 export default {
-    getImages,
+    getImageUrlFromStorage,
+    getPosts,
     getIsAdmin,
     uploadFile,
     addData
