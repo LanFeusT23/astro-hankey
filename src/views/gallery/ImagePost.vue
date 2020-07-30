@@ -9,14 +9,14 @@
         <div v-if="nextPostId" class="absolute left-0 flex items-end h-full pb-32">
             <i
                 @click="navigateNext"
-                class="p-2 text-5xl opacity-25 cursor-pointer fas fa-chevron-left hover:opacity-50"
+                class="z-20 p-2 text-5xl opacity-25 cursor-pointer fas fa-chevron-left hover:opacity-50"
             ></i>
         </div>
 
         <div v-if="previousPostId" class="absolute right-0 flex items-end h-full pb-32">
             <i
                 @click="navigatePrevious"
-                class="p-2 text-5xl opacity-25 cursor-pointer fas fa-chevron-right hover:opacity-50"
+                class="z-20 p-2 text-5xl opacity-25 cursor-pointer fas fa-chevron-right hover:opacity-50"
             ></i>
         </div>
 
