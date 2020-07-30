@@ -22,7 +22,7 @@ firebase.analytics()
 
 const firestore = firebase.firestore
 const db = firestore()
-const storage = firebase.app().storage(process.env.VUE_APP_STORAGE_BUCKET)
+const storage = firebase.app().storage(process.env.VUE_APP_STORAGE_GS_BUCKET_PATH)
 const authProvider = new firebase.auth.GoogleAuthProvider()
 const firebaseAuth = firebase.auth
 
