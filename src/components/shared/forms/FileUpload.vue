@@ -26,13 +26,13 @@ import { storage } from "@/firebaseConfig.js"
 export default {
     name: "FileUpload",
     components: {
-        Button
+        Button,
     },
     data() {
         return {
             imageData: null,
             picture: null,
-            uploadValue: 0
+            uploadValue: 0,
         }
     },
     computed: {
@@ -41,7 +41,7 @@ export default {
         },
         disableBtn() {
             return this.uploadValue !== 0 || this.imageData == null
-        }
+        },
     },
     methods: {
         previewImage(event) {
@@ -57,7 +57,7 @@ export default {
             this.picture = url
             this.$emit("image-uploaded", {
                 name: this.imageData.name,
-                url: url
+                url: url,
             })
             this.resetForm()
         },
@@ -73,47 +73,9 @@ export default {
             await this.$store.dispatch("posts/uploadFile", {
                 imageData,
                 onSnapshot,
-                onCompletion
+                onCompletion,
             })
-
-            // const storageRef = storage.ref(`test/${this.imageData.name}`).put(this.imageData)
-
-            // storageRef.on(
-            //     "state_changed",
-            //     snapshot => {
-            //         this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            //     },
-            //     error => {
-            //         console.log(error.message)
-            //         // A full list of error codes is available at
-            //         // https://firebase.google.com/docs/storage/web/handle-errors
-            //         switch (error.code) {
-            //             case "storage/unauthorized":
-            //                 // User doesn't have permission to access the object
-            //                 break
-
-            //             case "storage/canceled":
-            //                 // User canceled the upload
-            //                 break
-
-            //             case "storage/unknown":
-            //                 // Unknown error occurred, inspect error.serverResponse
-            //                 break
-            //         }
-            //     },
-            //     async () => {
-            //         // Upload completed successfully, now we can get the download URL
-            //         this.uploadValue = 100
-
-            //         const url = await storageRef.snapshot.ref.getDownloadURL()
-            //         this.picture = url
-            //         this.$emit("image-uploaded", {
-            //             name: this.imageData.name,
-            //             url: url
-            //         })
-            //     }
-            // )
-        }
-    }
+        },
+    },
 }
 </script>

@@ -1,9 +1,10 @@
 <template>
     <div class="relative flex flex-col justify-end w-full h-full">
-        <div
-            class="absolute z-0 w-full h-full bg-center bg-no-repeat bg-contain"
-            :style="{ 'background-image': `url(${imageDisplaying.url})` }"
-        ></div>
+        <img
+            class="absolute z-0 object-center w-full h-full"
+            :class="{ 'object-contain': !dontContainImage, 'object-none': dontContainImage, 'hidden': !imageDisplaying.url }"
+            :src="imageDisplaying.url"
+        />
 
         <div v-if="nextPostId" class="absolute left-0 flex items-end h-full pb-32">
             <i
@@ -42,21 +43,21 @@ export default {
             meta: [
                 {
                     property: "og:type",
-                    content: "website"
+                    content: "website",
                 },
                 {
                     property: "og:url",
-                    content: `https://astrohankey.space/gallery/${this.selectedPost?.id}`
+                    content: `https://astrohankey.space/gallery/${this.selectedPost?.id}`,
                 },
                 {
                     property: "og:title",
-                    content: "Jonathan Hankey Astrophotography"
+                    content: "Jonathan Hankey Astrophotography",
                 },
                 {
                     property: "og:image:secure_url",
-                    content: this.selectedPost?.thumbnailUrl
-                }
-            ]
+                    content: this.selectedPost?.thumbnailUrl,
+                },
+            ],
         }
     },
     computed: {
@@ -84,7 +85,10 @@ export default {
         },
         previousPostId() {
             return this.$store.getters["posts/previousPostId"]
-        }
+        },
+        dontContainImage() {
+            return this.selectedPost?.dontContainImage
+        },
     },
     methods: {
         navigatePrevious() {
@@ -92,17 +96,7 @@ export default {
         },
         navigateNext() {
             this.$emit("navigateNext")
-        }
+        },
     },
-    watch: {
-        selectedPost: {
-            handler(val) {
-                if (val != null) {
-                    this.$store.dispatch("posts/updateImageUrl", { post: this.selectedPost })
-                }
-            },
-            immediate: true
-        }
-    }
 }
 </script>
