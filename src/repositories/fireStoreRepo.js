@@ -1,20 +1,6 @@
 import { storage, firestore, imagesCollection, usersCollection } from "@/firebaseConfig.js"
 import Post from "@/models/Post"
 
-async function getImageUrlFromStorage(imagePath) {
-    let url = ""
-    try {
-        url = await storage
-            .ref()
-            .child(imagePath)
-            .getDownloadURL()
-    } catch (error) {
-        console.log(error)
-    }
-
-    return url
-}
-
 const getIsAdmin = async () => {
     try {
         const users = await usersCollection.get()
@@ -28,21 +14,10 @@ const getPosts = async () => {
     const posts = await imagesCollection.get()
 
     if (posts) {
-        return await Promise.all(
-            posts.docs.map(async snapshot => {
-                let data = snapshot.data()
-
-                const thumbnailUrl = await getImageUrlFromStorage(data.thumbnail)
-
-                return new Post(
-                    {
-                        ...data,
-                        thumbnailUrl
-                    },
-                    snapshot.id
-                )
-            })
-        )
+        return posts.docs.map(snapshot => {
+            let data = snapshot.data()
+            return new Post(data, snapshot.id)
+        })
     }
 }
 
@@ -88,11 +63,11 @@ const addData = async (docId, data) => {
     } catch (error) {
         console.log(error)
         alert("Error uploading data")
+        throw error
     }
 }
 
 export default {
-    getImageUrlFromStorage,
     getPosts,
     getIsAdmin,
     uploadFile,

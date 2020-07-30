@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-24 px-2">
+    <div class="px-2 pt-24">
         <Login />
 
         <template v-if="isAdmin">
@@ -12,6 +12,11 @@
                         @image-uploaded="setImageName"
                         :resetUpload="resetUpload"
                     ></FileUpload>
+
+                    <Checkbox class="mb-3" v-model="dontContainImage">
+                        Do not
+                        <i>object-contain</i> this image
+                    </Checkbox>
 
                     <TextInput class="mb-3" v-model="documentId" label="Document ID" disabled />
 
@@ -43,6 +48,7 @@ import DateInput from "@/components/shared/forms/DateInput"
 import FileUpload from "@/components/shared/forms/FileUpload"
 import ImagePreview from "@/components/shared/forms/ImagePreview"
 import Button from "@/components/shared/forms/Button"
+import Checkbox from "@/components/shared/forms/Checkbox"
 import isEmpty from "lodash/isEmpty"
 
 export default {
@@ -53,7 +59,8 @@ export default {
         DateInput,
         FileUpload,
         ImagePreview,
-        Button
+        Button,
+        Checkbox,
     },
     data() {
         return {
@@ -61,10 +68,11 @@ export default {
             subTitle: undefined,
             location: undefined,
             dateImageTaken: new Date(),
+            dontContainImage: false,
             imageFileName: undefined,
             imageUrl: undefined,
             addingPost: false,
-            resetUpload: false
+            resetUpload: false,
         }
     },
     computed: {
@@ -83,8 +91,8 @@ export default {
 
             let splitName = this.imageFileName.split(".")
 
-            var fileExt = splitName.pop()
-            return splitName.join(".")
+            splitName.pop() // remove file extension
+            return splitName.join(".").toLowerCase().replace(/ /g, "-")
         },
         thumbnailPath() {
             if (this.imageFileName === undefined) {
@@ -96,7 +104,7 @@ export default {
             var fileExt = splitName.pop()
 
             return `gallery/thumbnails/${this.documentId}_200x200.${fileExt}`
-        }
+        },
     },
     methods: {
         resetPost() {
@@ -106,6 +114,7 @@ export default {
             this.dateImageTaken = new Date()
             this.imageFileName = undefined
             this.imageUrl = undefined
+            this.dontContainImage = false
             this.resetUpload = true
         },
         setImageName(imageFile) {
@@ -113,29 +122,33 @@ export default {
             this.imageUrl = imageFile.url
         },
         async addNewImage() {
-            const { documentId, dateImageTaken, location, subTitle, title, imageFileName, getThumbnailPath } = this
+            const { documentId, dateImageTaken, location, subTitle, title, dontContainImage, imageFileName, getThumbnailPath } = this
 
             this.addingPost = true
             this.resetUpload = false
             const data = {
                 imageTakenDate: dateImageTaken,
                 location: location,
-                subTitle: subTitle,
                 title: title,
+                dontContainImage: dontContainImage,
                 thumbnail: this.thumbnailPath,
                 images: [
                     {
                         isMain: true,
-                        cloudLocation: `gallery/${imageFileName}`
-                    }
-                ]
+                        cloudLocation: `gallery/${imageFileName}`,
+                    },
+                ],
+            }
+
+            if (subTitle) {
+                data.subTitle = subTitle
             }
 
             await this.$store.dispatch("posts/addData", { documentId, data })
             this.addingPost = false
             alert("Success!")
             this.resetPost()
-        }
-    }
+        },
+    },
 }
 </script>
