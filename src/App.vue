@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="relative h-full overflow-x-hidden">
+    <div id="app" class="relative h-full">
         <ConnectedVertices></ConnectedVertices>
         <Navigation class="absolute top-0 h-16"></Navigation>
 
@@ -20,12 +20,12 @@ export default {
     name: "App",
     metaInfo: {
         title: "Jonathan Hankey Astrophotography",
-        titleTemplate: "%s | Jonathan Hankey Astrophotography"
+        titleTemplate: "%s | Jonathan Hankey Astrophotography",
     },
     components: {
         Navigation,
         NewVersion,
-        ConnectedVertices
+        ConnectedVertices,
     },
     computed: {
         fromRoute() {
@@ -47,7 +47,7 @@ export default {
             }
 
             return "left"
-        }
+        },
     },
     methods: {
         async enter(el, done) {
@@ -65,12 +65,12 @@ export default {
                 el,
                 {
                     x: startXPosition,
-                    opacity: 0
+                    opacity: 0,
                 },
                 {
                     x: 0,
                     opacity: 1,
-                    duration: 0.2
+                    duration: 0.2,
                 }
             )
 
@@ -91,18 +91,18 @@ export default {
                 el,
                 {
                     x: 0,
-                    opacity: 1
+                    opacity: 1,
                 },
                 {
                     x: finalXPosition,
                     opacity: 0,
                     duration: 0.2,
-                    ease: "none"
+                    ease: "none",
                 }
             )
 
             done()
-        }
-    }
+        },
+    },
 }
 </script>
