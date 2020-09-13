@@ -39,7 +39,7 @@ export default {
     },
     computed: {
         sortedPosts() {
-            return [...this.$store.getters["posts/sortedPosts"]]
+            return this.$store.getters["posts/sortedPosts"]
         }
     },
     methods: {
